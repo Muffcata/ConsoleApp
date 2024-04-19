@@ -11,6 +11,18 @@ namespace ConsoleApp1.zadanie_1
         public void LiczenieMethod()
         {
             Console.WriteLine("Wprowadź liczbę całkowitą");
+            float number = float.Parse(Console.ReadLine());
+
+            if (number > 0)
+            {
+                Console.WriteLine("To jest liczba dodatnia");
+            }
+            else if (number < 0)
+            {
+                Console.WriteLine("To jest liczba ujemna");
+            }
+            else
+                Console.WriteLine("To jest liczba równa zero");
         }
     }
 }
