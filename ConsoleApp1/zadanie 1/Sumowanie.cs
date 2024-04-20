@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1.zadanie_1
 {
-	internal class Sumowanie
-	{
-		static void SumowanieMethod()
-		{
+    internal class Sumowanie
+    {
+        public static void SumowanieMethod()
+        {
             int counter = 0;
             while (counter < 10)
             {
@@ -17,6 +17,6 @@ namespace ConsoleApp1.zadanie_1
                 counter++;
             }
         }
-	}
+    }
 }
 
