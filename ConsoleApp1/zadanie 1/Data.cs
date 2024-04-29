@@ -10,7 +10,13 @@ namespace ConsoleApp1.zadanie_1
     {
         public void DataMethod()
         {
-            Console.WriteLine("jjj");
+            DateTime dt = new DateTime(1990, 02, 24);
+            DateTime war = new DateTime(1914, 06, 08);
+
+            TimeSpan z = dt - war;
+            
+
+            Console.WriteLine("Tyle minęło od wybuchu I wojny światowej do dnia moich urodzin \t {0}", z.TotalDays);
         }
     }
 }
