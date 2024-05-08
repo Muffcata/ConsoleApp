@@ -19,5 +19,6 @@ using System.Collections.Generic;
 //GenerateNum obj4 = new GenerateNum();
 //obj4.GenerateNumber();
 
-Table obj5 = new Table();
-obj5.TableOfName();
+//Table obj5 = new Table();
+//obj5.TableOfName();
+

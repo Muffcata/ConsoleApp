@@ -23,6 +23,18 @@ namespace ConsoleApp1.zadanie_1
                 Console.WriteLine(s);
             }
             string[] nowaTablica = new string[tablica.Length -1];
+
+            Array.Copy(tablica, nowaTablica, nowaTablica.Length);
+            tablica = nowaTablica;
+
+            foreach( string s in tablica)
+            {
+                Console.WriteLine(s);
+            }
+
+            Console.ReadLine();
         }
+    
     }
+   
 }
