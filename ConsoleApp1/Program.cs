@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
 
+
 //Przywitanie obj = new Przywitanie();
 //obj.PrzywitanieMethod();
 
@@ -21,4 +22,5 @@ using System.Collections.Generic;
 
 //Table obj5 = new Table();
 //obj5.TableOfName();
+
 
