@@ -1,95 +1,85 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-//namespace ConsoleApp1.wisielec
-//{
-//    internal class Game
-//    {
-//        static void Main(string[] args)
-//        {
+namespace ConsoleApp1.wisielec
+{
 
-//            //string plik = @"C:\Users\InMoto\OneDrive\Pulpit\tekst - wisielec.txt";
-
-//            //var odczyt = File.ReadAllText(plik);
-
-//            //string dopisz = "\nDarek";
-
-//            //File.AppendAllText(plik, dopisz);
-
-//            //Console.WriteLine(odczyt);
-
-//            //string plik = @"C:\Users\InMoto\OneDrive\Pulpit\tekst - wisielec.txt";
-
-//            //string[] lines = File.ReadAllLines(plik);
-
-//            //int index = -1;
-
-//            //for (int i = 0; i < lines.Length; i++) 
-//            //{
-//            //    if (lines[i].Contains("w"))
-//            //    {
-//            //        index = i;
-//            //        break;
-//            //    }
-//            //}
-
-//            //if(index != -1)
-//            //{
-//            //    lines[index] = "p";
-
-//            //    File.WriteAllLines(plik, lines);
-//            //    Console.WriteLine("litera znaleziona");
-//            //}
-//            //else
-//            //{
-//            //    Console.WriteLine("litera nie została znaleziona");
-//            //}
+    public class Game
+    {
       
+        static void Main(string[] args)
+        {
+            TworzenieRozgrywki();
+
+        }
+        
+        //static string DziedzinaHaslo;
+        //static char[] PokazHaslo;
+        //static int LiczbaSzans = 4;
+        static void TworzenieRozgrywki()
+        {
+            string Haslo;
+            char[] PokazHaslo;
+            //odczytanie listy haseł i dziedziny z pliku
+
+            string plik = @"C:\Users\marta\OneDrive\Pulpit\wisielec-hasla.txt";
+            
+            //wylosowanie danego hasla i ustawienie pola hasła i dziedziny
+           
+            string[] lines = File.ReadAllLines(plik);
+
+            var Hasla = new List<string>();
+
+            foreach (var item  in lines)
+            {
+                var podzial = item.Split('|');
+
+                if (podzial.Length > 0)
+                {
+                    Haslo = podzial[0];
+                    Hasla.Add(Haslo);
+
+                    Random random = new Random();
+                    int indexHasla = random.Next(0, Hasla.Count);
+                    //string wylosowaneHaslo = Hasla[indexHasla];
+
+                    //Console.WriteLine("Wylosowane hasło: " + wylosowaneHaslo);
+
+                }
+
+              
+            }
+
+           
+
+            
 
 
-//            //static string DziedzinaHasla;
-//            //static char[] PokazHaslo;
-//            //static int LiczbaSzans = 4;
 
-//            static void TworzenieRozgrywki()
-//            {
-//                //odczytanie listy haseł i dziedziny z pliku + wylosowanie danego hasla i ustawienie pola hasła i dziedziny, przygotowanie widocznego hasła
-//                static string Haslo()
-//                {
-//                    string plik = @"C:\Users\InMoto\OneDrive\Pulpit\tekst - wisielec.txt";
-//                    var odczytHaslo = File.ReadAllText(plik);
-//                    Console.WriteLine(odczytHaslo);
-//                }
+            //przygotowanie widocznego hasła
+        }
 
-//                static string DziedzinaHasla(string plikDziedzina)
-//                {
-//                    string plikDziedzina = @"C:\Users\InMoto\OneDrive\Pulpit\dziedzina.txt";
+       
 
-//                    var odczytDziedzina = File.ReadAllText(plikDziedzina);
+        //static void Napisz()
+        //{
 
-//                    return odczytDziedzina;
-//                }
+        //}
 
+        //static void Aktualizacje()
+        //{
 
-//                //static void Napisz()
-//                //{
+        //}
 
-//                //}
+        //static void CzyWygranaLubPrzegrana()
+        //{
 
-//                //static void Aktualizacje()
-//                //{
+        //}
+    }
+}
 
-//                //}
-
-//                //static void CzyWygranaLubPrzegrana()
-//                //{
-
-//                //}
-//            }
-//        }
-//    }
-//}
 
