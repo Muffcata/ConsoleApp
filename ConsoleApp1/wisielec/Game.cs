@@ -2,84 +2,119 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ConsoleApp1.wisielec
 {
-
     public class Game
     {
-      
-        static void Main(string[] args)
+
+        static void Main()
         {
-            TworzenieRozgrywki();
+            int liczbaSzans = 4;
+            Console.WriteLine("Witaj w grze wisielec :)");
+            (string wylosowaneHaslo, string wylosowanaDziedzina) = TworzenieRozgrywki();
 
-        }
-        
-        //static string DziedzinaHaslo;
-        //static char[] PokazHaslo;
-        //static int LiczbaSzans = 4;
-        static void TworzenieRozgrywki()
-        {
-            string Haslo;
-            char[] PokazHaslo;
-            //odczytanie listy haseł i dziedziny z pliku
+            Console.WriteLine("Dziedzina: " + wylosowanaDziedzina);
 
-            string plik = @"C:\Users\marta\OneDrive\Pulpit\wisielec-hasla.txt";
-            
-            //wylosowanie danego hasla i ustawienie pola hasła i dziedziny
-           
-            string[] lines = File.ReadAllLines(plik);
+            char[] pokazHaslo = Napisz(wylosowaneHaslo);
+            Console.WriteLine();
+            Console.WriteLine($"Twoje próby: {liczbaSzans} ");
 
-            var Hasla = new List<string>();
-
-            foreach (var item  in lines)
+            while (true)
             {
-                var podzial = item.Split('|');
+                // Wypisanie aktualnego stanu ukrytego hasła
+                Console.WriteLine("\nHasło: " + new string(pokazHaslo));
 
-                if (podzial.Length > 0)
+                // Wywołanie funkcji Aktualizacje() i aktualizacja ukrytego hasła
+                Aktualizacje(pokazHaslo);
+
+                // Sprawdzenie czy hasło zostało odgadnięte
+                if (!wylosowaneHaslo.Contains('_'))
                 {
-                    Haslo = podzial[0];
-                    Hasla.Add(Haslo);
-
-                    Random random = new Random();
-                    int indexHasla = random.Next(0, Hasla.Count);
-                    //string wylosowaneHaslo = Hasla[indexHasla];
-
-                    //Console.WriteLine("Wylosowane hasło: " + wylosowaneHaslo);
-
+                    Console.WriteLine("Gratulacje, odgadłeś hasło!");
+                    break; // Zakończ grę
                 }
-
-              
             }
 
-           
-
-            
-
-
-
-            //przygotowanie widocznego hasła
         }
 
-       
+        static (string Haslo, string DziedzinaHasla) TworzenieRozgrywki()
+        {
 
-        //static void Napisz()
-        //{
+            //odczytanie listy haseł i dziedziny z pliku
 
-        //}
+            string plik = @"C:\Users\InMoto\OneDrive\Pulpit\dziedzina.txt";
+            string[] lines = File.ReadAllLines(plik);
 
-        //static void Aktualizacje()
-        //{
+            //wylosowanie danego hasla i ustawienie pola hasła i dziedziny +  wyświetlanie z jakiej dziedziny jest haslo
 
-        //}
+            var Hasla = new List<string>();
+            var Dziedziny = new List<string>();
 
-        //static void CzyWygranaLubPrzegrana()
-        //{
+            foreach (var line in lines)
+            {
+                var podzial = line.Split('|');
 
-        //}
+                if (podzial.Length >= 2)
+                {
+                    string DziedzinaHasla = podzial[0];
+                    string Haslo = podzial[1];
+
+                    Dziedziny.Add(DziedzinaHasla);
+                    Hasla.Add(Haslo);
+                }
+            }
+
+            Random haslo = new Random();
+            int index = haslo.Next(0, Hasla.Count);
+
+            return (Hasla[index], Dziedziny[index]);
+
+        }
+
+        static char[] Napisz(string wylosowaneHaslo)
+        {
+            //wyświetlanie ukrytego hasla + ilość szans gracza do przegranej
+     
+            char[] pokazHaslo = new char[wylosowaneHaslo.Length];
+
+            for (int i = 0; i < wylosowaneHaslo.Length; i++)
+            {
+                pokazHaslo[i] = (wylosowaneHaslo[i] == ' ') ? ' ' : '_';
+            }
+            return pokazHaslo;
+
+            
+        }
+
+
+        static void Aktualizacje(char[] pokazHaslo)
+        {
+            Console.WriteLine("Podaj literę jaką chcesz sprawdzić:");
+            char literaUzytkownika = Console.ReadKey().KeyChar;
+            Console.WriteLine();
+
+            int index = -1;
+            for (int i = 0; i < pokazHaslo.Length; i++)
+            {
+                if (pokazHaslo[i] == '_')
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index != -1)
+            {
+                pokazHaslo[index] = literaUzytkownika;
+            }
+        }
     }
 }
+
+
 
 
