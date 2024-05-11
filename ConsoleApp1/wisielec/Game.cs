@@ -13,26 +13,28 @@ namespace ConsoleApp1.wisielec
 
         static void Main()
         {
-          
+
             Console.WriteLine("Witaj w grze wisielec :)");
             (string wylosowaneHaslo, string wylosowanaDziedzina) = TworzenieRozgrywki();
 
             Console.WriteLine("Dziedzina: " + wylosowanaDziedzina);
 
-            char[] pokazHaslo = Napisz(wylosowaneHaslo);
-            Console.WriteLine();
+            char[] pokazHaslo = Napisz(wylosowaneHaslo, out int liczbaProb);
+            Console.WriteLine(pokazHaslo);
 
-            while (true)
-            {
-                Aktualizacje(pokazHaslo, wylosowaneHaslo);
+            Console.WriteLine("Ilość szans: " + liczbaProb);
 
-                // Sprawdzenie czy hasło zostało odgadnięte
-                if (!wylosowaneHaslo.Contains('_'))
-                {
-                    Console.WriteLine("Gratulacje, odgadłeś hasło!");
-                    break; // Zakończ grę
-                }
-            }
+            Console.WriteLine("Podaj literę:");
+
+            char literaGracza = Console.ReadLine()[0];
+
+            bool literaZnaleziona;
+
+            Aktualizacje(ref pokazHaslo, wylosowaneHaslo, literaGracza, out literaZnaleziona, out liczbaProb);
+
+            CzyWygranaLubPrzegrana(ref liczbaProb, pokazHaslo, wylosowaneHaslo);
+
+           
         }
 
         static (string Haslo, string DziedzinaHasla) TworzenieRozgrywki()
@@ -40,7 +42,7 @@ namespace ConsoleApp1.wisielec
 
             //odczytanie listy haseł i dziedziny z pliku
 
-            string plik = @"C:\Users\InMoto\OneDrive\Pulpit\dziedzina.txt";
+            string plik = @"C:\Users\marta\OneDrive\Pulpit\wisielec-hasla.txt";
             string[] lines = File.ReadAllLines(plik);
 
             //wylosowanie danego hasla i ustawienie pola hasła i dziedziny +  wyświetlanie z jakiej dziedziny jest haslo
@@ -69,10 +71,11 @@ namespace ConsoleApp1.wisielec
 
         }
 
-        static char[] Napisz(string wylosowaneHaslo)
+        static char[] Napisz(string wylosowaneHaslo, out int liczbaProb)
         {
             //wyświetlanie ukrytego hasla + ilość szans gracza do przegranej
-     
+            liczbaProb = 4;
+
             char[] pokazHaslo = new char[wylosowaneHaslo.Length];
 
             for (int i = 0; i < wylosowaneHaslo.Length; i++)
@@ -80,51 +83,55 @@ namespace ConsoleApp1.wisielec
                 pokazHaslo[i] = '_';
             }
             return pokazHaslo;
+
         }
 
-
-        static void Aktualizacje(char[] pokazHaslo, string wylosowaneHaslo)
+        static void Aktualizacje(ref char[] pokazHaslo, string wylosowaneHaslo, char litera, out bool literaZnaleziona, out int liczbaProb)
         {
-            bool hasloOdgadniete = false;
-            int liczbaProb = 5;
+            literaZnaleziona = false;
+            liczbaProb = 4;
 
-            Console.WriteLine($"pozostało szans: {liczbaProb}");
+            bool literaBylaJuzSprawdzana = false; 
 
-            while (!hasloOdgadniete)
+            for (int i = 0; i < wylosowaneHaslo.Length; i++)
             {
-                Console.WriteLine("Aktualne hasło: " + new string(pokazHaslo));
-                Console.Write("Podaj literę: ");
-                char litera = Console.ReadLine()[0];
-
-                bool literaZgadnieta = false;
-
-                for (int i = 0; i < wylosowaneHaslo.Length; i++)
+                if (wylosowaneHaslo[i] == litera)
                 {
-                    if (wylosowaneHaslo[i] == litera)
-                    {
-                        pokazHaslo[i] = litera;
-                        literaZgadnieta = true;
-                    }
-                }
-
-                if (literaZgadnieta)
-                {
-                    Console.WriteLine("Brawo! Zgadłeś literę.");
-                }
-                else
-                {
-                    Console.WriteLine("Niepoprawna litera.");
-                    liczbaProb--;
-                }
-
-                if (new string(pokazHaslo) == wylosowaneHaslo)
-                {
-                    hasloOdgadniete = true;
+                    pokazHaslo[i] = litera;
+                    literaZnaleziona = true;
+                    literaBylaJuzSprawdzana = true; 
                 }
             }
+
+            if (!literaBylaJuzSprawdzana)
+            {
+                Console.WriteLine("Litera nie występuje w haśle.");
+                liczbaProb--; 
+            }
+
+            Console.WriteLine("Ilość szans: " + liczbaProb);
         }
+
+
+        static void CzyWygranaLubPrzegrana(ref int liczbaProb, char[] pokazHaslo, string wylosowaneHaslo)
+        {
+            //jak użytkownik straci zycia to przegrywa
+
+            if (string.Equals(wylosowaneHaslo, new string(pokazHaslo)))
+            {
+                Console.WriteLine("Gratulacje! Odgadłeś hasło: " + wylosowaneHaslo);
+            }
+            else
+            {
+                Console.WriteLine("Przegrałeś! Hasło to: " + wylosowaneHaslo);
+            }
+
+            Console.WriteLine("Koniec gry.");
+        }
+
     }
 }
+
 
 
 
