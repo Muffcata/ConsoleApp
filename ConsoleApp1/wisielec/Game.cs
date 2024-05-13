@@ -10,7 +10,6 @@ namespace ConsoleApp1.wisielec
 {
     public class Game
     {
-
         static void Main()
         {
 
@@ -42,7 +41,7 @@ namespace ConsoleApp1.wisielec
 
             //odczytanie listy haseł i dziedziny z pliku
 
-            string plik = @"C:\Users\marta\OneDrive\Pulpit\wisielec-hasla.txt";
+            string plik = @"dziedzina.txt";
             string[] lines = File.ReadAllLines(plik);
 
             //wylosowanie danego hasla i ustawienie pola hasła i dziedziny +  wyświetlanie z jakiej dziedziny jest haslo
