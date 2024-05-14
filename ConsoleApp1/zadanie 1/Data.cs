@@ -15,7 +15,6 @@ namespace ConsoleApp1.zadanie_1
 
             TimeSpan z = dt - war;
             
-
             Console.WriteLine("Tyle minęło od wybuchu I wojny światowej do dnia moich urodzin \t {0}", z.TotalDays);
         }
     }
